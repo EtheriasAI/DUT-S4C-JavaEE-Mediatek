@@ -53,7 +53,8 @@ public class Mediatek {
 	// si pas trouvé, renvoie null
 	
 	public Utilisateur getUser (String login, String password) {
-		return data.getUser(login, password);
+		Utilisateur a = data.getUser(login, password);
+		return a;
 	}
 
 	// renvoie le document de numéro numDocument

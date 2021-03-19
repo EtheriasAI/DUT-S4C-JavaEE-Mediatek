@@ -8,6 +8,5 @@ package mediatek2021;
  */
 public interface Document {
 // Jean-François Brette 01/01/2021
-	Object[] data();
-	
+	Object[] data();	
 }

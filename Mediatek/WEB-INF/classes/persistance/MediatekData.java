@@ -1,5 +1,6 @@
 package persistance;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
@@ -16,38 +17,58 @@ public class MediatekData implements PersistentMediatek {
 			Mediatek.getInstance().setData(new MediatekData());
 		} catch (Exception e) {	e.printStackTrace();}
     }
-
+    /*Connection a la bd*/
     private Connection cnx;
     
     private MediatekData() throws Exception {
+    	/*initialisation de la connexion a la bd*/
     	Class.forName("oracle.jdbc.OracleDriver");
 		cnx = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","TEST","TEST");
-		
     }
 
     // renvoie la liste de tous les documents de la bibliotheque
     @Override
     public List<Document> catalogue(int type) {
     	//3type de Document
-        return null;
+    	List<Document> test= new ArrayList<Document>();
+    	/*requete SQL pour rechercher les elements portant le type*/
+    	String reqSQL = "SELECT typeD,idD, nomD FROM document order by idD";
+		Statement stReq;
+		try {
+			stReq = cnx.createStatement();		//prepare c'est mieux donc a voir
+			ResultSet res = stReq.executeQuery(reqSQL);
+			while (res.next()) {
+				/*si le type correspond on recupere les donnees et on l'ajoute au catalogue*/
+				int t =Integer.parseInt(res.getString("typeD"));
+				if(t==type)	{
+					String mesArgs[]= new String[3];
+					mesArgs[0]=Integer.toString(type);
+					mesArgs[1]=res.getString("idD");
+					mesArgs[2]=res.getString("nomD");
+					test.add(new Doc(mesArgs));
+					}
+			}
+			
+		} catch (SQLException e) {e.printStackTrace();}
+		return test;
     }
 
     // va recuperer le User dans la BD et le renvoie
     // si pas trouve, renvoie null
     @Override
     public Utilisateur getUser(String login, String password) {
+    	/*requete SQL pour rechercher l'utilisateur portant le login et le password*/
     	String reqSQL = "SELECT loginu, pwdu FROM utilisateur";
 		Statement stReq;
-		Utilisateur a = null;
 		try {
-			stReq = cnx.createStatement();
+			stReq = cnx.createStatement();		//prepare c'est mieux donc a voir
 			ResultSet res = stReq.executeQuery(reqSQL);
 			while (res.next()) {
-				if(res.getString("loginu").contentEquals(login)&&res.getString("pwdu").contentEquals(password))
-					return a;
+				if(res.getString("loginu").equals(login)&&res.getString("pwdu").equals(password))
+					return new User(login,password);
 			}
 		} catch (SQLException e) {e.printStackTrace();}
-		return null;
+		return new User("null","null");
     	
     }
 
@@ -56,6 +77,7 @@ public class MediatekData implements PersistentMediatek {
     // si pas trouve, renvoie null
     @Override
     public Document getDocument(int numDocument) {
+    	/*requete SQL pour recherhcer le document portant l'id*/
     	String reqSQL = "SELECT numd FROM document";
 		Statement stReq;
 		try {
@@ -72,15 +94,25 @@ public class MediatekData implements PersistentMediatek {
     // ajoute un nouveau document - exception a definir
     @Override
     public void newDocument(int type, Object... args) throws NewDocException {
-        // args[0] -> le titre
-        // args [1] --> l'auteur
-        // etc en fonction du type et des infos optionnelles
+    	/*requete SQL pour ajouter une ligne*/
+        String reqSQL = "INSERT INTO document (typeD, idD, nomD) VALUES ("+type+","+ args[0] +",'"+args[1]+"')";
+		Statement stReq;
+		try {
+			stReq = cnx.createStatement();		
+			ResultSet res = stReq.executeQuery(reqSQL);
+		} catch (SQLException e) { throw new NewDocException(e.getLocalizedMessage());}
     }
 
-    // supprime un document - exception a definir
-    @Override
+	// supprime un document - exception a definir
+	@Override
     public void suppressDoc(int numDoc) throws SuppressException {
-        
+		/*requete SQL pour supprimer une ligne*/
+    	String reqSQL = "delete from document where idD =" + numDoc;
+		Statement stReq;
+		try {
+			stReq = cnx.createStatement();		
+			ResultSet res = stReq.executeQuery(reqSQL);
+		} catch (SQLException e) {throw new SuppressException(e.getLocalizedMessage());}
     }
 
 }
