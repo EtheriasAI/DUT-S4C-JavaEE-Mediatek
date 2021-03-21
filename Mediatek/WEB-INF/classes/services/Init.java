@@ -1,5 +1,15 @@
 package services;
 
+/**
+ * Classe pour charger la classe MediatekData
+ * 
+ * @author DOGHRI FARAH
+ * @author BARTHELME JUSTINE
+ * 
+ * @version 1.0
+ * 
+ */
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,4 +29,3 @@ public class Init extends HttpServlet {
 		}
 	}
 }
-

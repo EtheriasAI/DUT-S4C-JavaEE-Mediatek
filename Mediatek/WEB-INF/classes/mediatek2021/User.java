@@ -1,5 +1,15 @@
 package mediatek2021;
 
+/**
+ * Classe implementant l'interface utilisateur
+ * 
+ * @author DOGHRI FARAH
+ * @author BARTHELME JUSTINE
+ * 
+ * @version 1.0
+ * 
+ */
+
 public class User implements Utilisateur {
 	
 	/*login de l'utilisateur*/

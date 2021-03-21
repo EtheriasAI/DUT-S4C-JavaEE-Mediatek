@@ -12,6 +12,11 @@
 
 <h1>Bienvenue a toi <%= request.getAttribute("login") %></h1>
 
+<!-- Pour se deconnecter -->
+<form method="post" action="./deconnexion">
+  <button type="submit">Deconnexion</button>
+</form>
+
 <p>Tu peux soit ajouter ou supprimer un document</p>
 
 <a href="ajout_document.jsp">Ajouter un document</a>

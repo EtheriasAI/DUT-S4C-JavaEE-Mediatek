@@ -9,6 +9,11 @@
 
 <h1>Supprimer un document</h1>
 
+<!-- Pour se deconnecter -->
+<form method="post" action="./deconnexion">
+  <button type="submit">Deconnexion</button>
+</form>
+
 <form method="post" action="./retirerDoc">
   
   <input type="text" name="idD"/>

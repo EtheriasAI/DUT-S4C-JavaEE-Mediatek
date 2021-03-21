@@ -1,5 +1,15 @@
 package services;
 
+/**
+ * Classe pour retirer les documents
+ * 
+ * @author DOGHRI FARAH
+ * @author BARTHELME JUSTINE
+ * 
+ * @version 1.0
+ * 
+ */
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;

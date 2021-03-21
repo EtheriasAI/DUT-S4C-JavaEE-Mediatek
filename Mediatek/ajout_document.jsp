@@ -9,6 +9,11 @@
 
 <h1>Ajouter un document</h1>
 
+<!-- Pour se deconnecter -->
+<form method="post" action="./deconnexion">
+  <button type="submit">Deconnexion</button>
+</form>
+
 <FORM method="post" action="./ajoutDoc">
 
 	<p>Type doc</p>

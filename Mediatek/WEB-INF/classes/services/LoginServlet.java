@@ -1,5 +1,16 @@
 package services;
 
+/**
+ * Classe pour gerer la connexion
+ * et pour lancer le portail
+ * 
+ * @author DOGHRI FARAH
+ * @author BARTHELME JUSTINE
+ * 
+ * @version 1.0
+ * 
+ */
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -46,7 +57,5 @@ public class LoginServlet extends HttpServlet {
         	this.getServletContext().getRequestDispatcher("/error.jsp").forward(request,response);        	
         }
     }
-    
-    
 }
 

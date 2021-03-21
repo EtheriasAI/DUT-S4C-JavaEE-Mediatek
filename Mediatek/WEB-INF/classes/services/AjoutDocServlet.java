@@ -1,5 +1,15 @@
 package services;
 
+/**
+ * Classe pour gerer l'ajout de document
+ * 
+ * @author DOGHRI FARAH
+ * @author BARTHELME JUSTINE
+ * 
+ * @version 1.0
+ * 
+ */
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
